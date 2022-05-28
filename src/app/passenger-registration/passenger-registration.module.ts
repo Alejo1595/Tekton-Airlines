@@ -1,7 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { SharedModule } from '../shared/shared.module';
+
 import { PassengerRegistrationRoutingModule } from './passenger-registration-routing.module';
+
 import { RegistrationFormComponent } from './registration-form/registration-form.component';
 import { PassegerListComponent } from './passeger-list/passeger-list.component';
 
@@ -13,7 +16,8 @@ import { PassegerListComponent } from './passeger-list/passeger-list.component';
   ],
   imports: [
     CommonModule,
-    PassengerRegistrationRoutingModule
+    PassengerRegistrationRoutingModule,
+    SharedModule,
   ],
   exports: [
     RegistrationFormComponent,
