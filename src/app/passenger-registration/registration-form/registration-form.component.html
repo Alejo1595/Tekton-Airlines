@@ -1,88 +1,104 @@
 <app-container title="Registro de pasajeros">
-  <form (submit)="submit()" [formGroup]="formulario">
+  <form (submit)="submit()" [formGroup]="formulario" autocomplete="off">
     <section
       formArrayName="secciones"
       *ngFor="let seccion of secciones.controls; let i = index"
       fxLayout="column"
       class="spacing-section"
     >
-      <div
-        [formGroupName]="i"
-        fxLayoutAlign="space-between center"
-        fxLayoutGap="1rem"
-      >
-        <!-- Nombres -->
-        <mat-form-field appearance="fill" fxFlex="1 1 calc(20% - 1rem)">
-          <mat-label>Nombres</mat-label>
-          <input matInput placeholder="Nombres" formControlName="nombres" />
-          <mat-error
-            *ngIf="secciones.controls[i].get('nombres')?.hasError('required')"
-          >
-            El campo es <strong>obligatorio</strong>
-          </mat-error>
-        </mat-form-field>
+      <div [formGroupName]="i" fxLayout="column">
+        <div fxLayoutAlign="space-between center" fxLayoutGap="1rem">
+          <!-- Nombres -->
+          <mat-form-field appearance="fill" fxFlex="1 1 calc(20% - 1rem)">
+            <mat-label>Nombres</mat-label>
+            <input matInput placeholder="Nombres" formControlName="nombres" />
+            <mat-error
+              *ngIf="secciones.controls[i].get('nombres')?.hasError('required')"
+            >
+              El campo es <strong>obligatorio</strong>
+            </mat-error>
+          </mat-form-field>
 
-        <!-- Apellidos -->
-        <mat-form-field appearance="fill" fxFlex="1 1 calc(20% - 1rem)">
-          <mat-label>Apellidos</mat-label>
-          <input matInput placeholder="Apellidos" formControlName="apellidos" />
-          <mat-error
-            *ngIf="secciones.controls[i].get('apellidos')?.hasError('required')"
-          >
-            El campo es <strong>obligatorio</strong>
-          </mat-error>
-        </mat-form-field>
+          <!-- Apellidos -->
+          <mat-form-field appearance="fill" fxFlex="1 1 calc(20% - 1rem)">
+            <mat-label>Apellidos</mat-label>
+            <input
+              matInput
+              placeholder="Apellidos"
+              formControlName="apellidos"
+            />
+            <mat-error
+              *ngIf="
+                secciones.controls[i].get('apellidos')?.hasError('required')
+              "
+            >
+              El campo es <strong>obligatorio</strong>
+            </mat-error>
+          </mat-form-field>
 
-        <!-- Nacionalidad -->
-        <mat-form-field appearance="fill" fxFlex="1 1 calc(20% - 1rem)">
-          <mat-label>Nacionalidad</mat-label>
-          <input
-            matInput
-            placeholder="Nacionalidad"
-            formControlName="nacionalidad"
-          />
-          <mat-error
-            *ngIf="
-              secciones.controls[i].get('nacionalidad')?.hasError('required')
-            "
-          >
-            El campo es <strong>obligatorio</strong>
-          </mat-error>
-        </mat-form-field>
+          <!-- Nacionalidad -->
+          <mat-form-field appearance="fill" fxFlex="1 1 calc(20% - 1rem)">
+            <mat-label>Nacionalidad</mat-label>
+            <input
+              matInput
+              placeholder="Nacionalidad"
+              formControlName="nacionalidad"
+            />
+            <mat-error
+              *ngIf="
+                secciones.controls[i].get('nacionalidad')?.hasError('required')
+              "
+            >
+              El campo es <strong>obligatorio</strong>
+            </mat-error>
+          </mat-form-field>
 
-        <!-- TipoDocumento -->
-        <mat-form-field appearance="fill" fxFlex="1 1 calc(20% - 1rem)">
-          <mat-label>Tipo Documento</mat-label>
-          <input
-            matInput
-            placeholder="TipoDocumento"
-            formControlName="tipoDocumento"
-          />
-          <mat-error
-            *ngIf="
-              secciones.controls[i].get('tipoDocumento')?.hasError('required')
-            "
-          >
-            El campo es <strong>obligatorio</strong>
-          </mat-error>
-        </mat-form-field>
+          <!-- TipoDocumento -->
+          <mat-form-field appearance="fill" fxFlex="1 1 calc(20% - 1rem)">
+            <mat-label>Tipo Documento</mat-label>
+            <input
+              matInput
+              placeholder="TipoDocumento"
+              formControlName="tipoDocumento"
+            />
+            <mat-error
+              *ngIf="
+                secciones.controls[i].get('tipoDocumento')?.hasError('required')
+              "
+            >
+              El campo es <strong>obligatorio</strong>
+            </mat-error>
+          </mat-form-field>
 
-        <!-- NumeroDocumento -->
-        <mat-form-field appearance="fill" fxFlex="1 1 calc(20% - 1rem)">
-          <mat-label>Numero Documento</mat-label>
-          <input
-            matInput
-            placeholder="NumeroDocumento"
-            formControlName="numeroDocumento"
-          />
-          <mat-error
-            *ngIf="
-              secciones.controls[i].get('numeroDocumento')?.hasError('required')
-            "
+          <!-- NumeroDocumento -->
+          <mat-form-field appearance="fill" fxFlex="1 1 calc(20% - 1rem)">
+            <mat-label>Numero Documento</mat-label>
+            <input
+              matInput
+              placeholder="NumeroDocumento"
+              formControlName="numeroDocumento"
+            />
+            <mat-error
+              *ngIf="
+                secciones.controls[i]
+                  .get('numeroDocumento')
+                  ?.hasError('required')
+              "
+            >
+              El campo es <strong>obligatorio</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div fxLayoutAlign="end center">
+          <button
+            mat-raised-button
+            type="button"
+            color="warn"
+            (click)="limpiarSeccion(i)"
           >
-            El campo es <strong>obligatorio</strong>
-          </mat-error>
-        </mat-form-field>
+            Limpiar seccion
+          </button>
+        </div>
       </div>
     </section>
 
@@ -91,6 +107,7 @@
         mat-raised-button
         type="button"
         color="accent"
+        [disabled]="validarNumeroSecciones"
         (click)="agregarSeccion()"
       >
         Nuevo pasajero
