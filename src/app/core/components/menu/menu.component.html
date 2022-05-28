@@ -1,0 +1,20 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+    <span>Tekton Airlines</span>
+
+    <div fxLayoutGap="1rem">
+      <button mat-raised-button color="accent" aria-label="Register">
+        Registro
+      </button>
+      <button mat-raised-button color="accent" aria-label="Register">
+        Listado
+      </button>
+    </div>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<section class="card-container">
+  <mat-card>
+    <router-outlet></router-outlet>
+  </mat-card>
+</section>

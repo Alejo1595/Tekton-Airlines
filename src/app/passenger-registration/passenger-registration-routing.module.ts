@@ -6,15 +6,15 @@ import { PassegerListComponent } from './passeger-list/passeger-list.component';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'registration-form',
+    redirectTo: 'form',
     pathMatch: 'full'
   },
   {
-    path: 'registration-form',
+    path: 'form',
     component: RegistrationFormComponent
   },
   {
-    path: 'passenger-list',
+    path: 'list',
     component: PassegerListComponent
   },
 ];
