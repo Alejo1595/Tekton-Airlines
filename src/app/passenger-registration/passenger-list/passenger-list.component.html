@@ -1,1 +1,73 @@
-<p>passeger-list works!</p>
+<app-container titleHeader="Listado de pasajeros">
+  <div
+    fxLayoutAlign="end center"
+    fxLayoutGap="1rem"
+    style="margin-bottom: 1rem"
+  >
+    <button mat-mini-fab color="warn" [disabled]="toogleDeleteButton">
+      <mat-icon>delete</mat-icon>
+    </button>
+
+    <button mat-mini-fab color="accent">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" fxFill>
+    <!-- nombres -->
+    <ng-container matColumnDef="nombres">
+      <th mat-header-cell *matHeaderCellDef>Nombres</th>
+      <td mat-cell *matCellDef="let element">{{ element.nombres }}</td>
+    </ng-container>
+
+    <!-- apellidos -->
+    <ng-container matColumnDef="apellidos">
+      <th mat-header-cell *matHeaderCellDef>Apellidos</th>
+      <td mat-cell *matCellDef="let element">{{ element.apellidos }}</td>
+    </ng-container>
+
+    <!-- nacionalidad -->
+    <ng-container matColumnDef="nacionalidad">
+      <th mat-header-cell *matHeaderCellDef>Nacionalidad</th>
+      <td mat-cell *matCellDef="let element">{{ element.nacionalidad }}</td>
+    </ng-container>
+
+    <!-- tipo Documento -->
+    <ng-container matColumnDef="tipoDocumento">
+      <th mat-header-cell *matHeaderCellDef>Tipo Documento</th>
+      <td mat-cell *matCellDef="let element">{{ element.tipoDocumento }}</td>
+    </ng-container>
+
+    <!-- numero Documento -->
+    <ng-container matColumnDef="numeroDocumento">
+      <th mat-header-cell *matHeaderCellDef>Numero Documento</th>
+      <td mat-cell *matCellDef="let element">{{ element.numeroDocumento }}</td>
+    </ng-container>
+
+    <!-- Checkbox Column -->
+    <ng-container matColumnDef="select">
+      <th mat-header-cell *matHeaderCellDef>
+        <mat-checkbox
+          (change)="$event ? masterToggle() : null"
+          [checked]="selection.hasValue() && isAllSelected()"
+          [indeterminate]="selection.hasValue() && !isAllSelected()"
+        >
+        </mat-checkbox>
+      </th>
+      <td mat-cell *matCellDef="let row">
+        <mat-checkbox
+          (click)="$event.stopPropagation()"
+          (change)="$event ? selection.toggle(row) : null"
+          [checked]="selection.isSelected(row)"
+        >
+        </mat-checkbox>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr
+      mat-row
+      *matRowDef="let row; columns: displayedColumns"
+      (click)="selection.toggle(row)"
+    ></tr>
+  </table>
+</app-container>
