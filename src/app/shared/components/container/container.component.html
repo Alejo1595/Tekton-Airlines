@@ -1,11 +1,9 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row fxLayout="row" fxLayoutAlign="center center">
-    <span>{{ title }}</span>
+    <span>{{ titleHeader }}</span>
   </mat-toolbar-row>
 </mat-toolbar>
 
 <section class="card-container">
-  <mat-card>
-    <ng-content></ng-content>
-  </mat-card>
+  <ng-content></ng-content>
 </section>

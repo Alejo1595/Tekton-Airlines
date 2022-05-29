@@ -1,6 +1,15 @@
 .spacing-section {
-  &:not(:first-of-type) {
-    margin-top: 1rem;
-  }
   margin-bottom: 1rem;
+  position: relative;
+  padding: 0.5em;
+
+  &:not(:first-of-type) {
+    margin-top: 2rem;
+  }
+}
+
+.btn-delete {
+  position: absolute;
+  top: -15%;
+  left: 98%;
 }

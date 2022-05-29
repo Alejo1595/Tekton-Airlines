@@ -1,6 +1,6 @@
-<app-container title="Registro de pasajeros">
+<app-container titleHeader="Registro de pasajeros">
   <form (submit)="submit()" [formGroup]="formulario" autocomplete="off">
-    <section
+    <mat-card
       formArrayName="secciones"
       *ngFor="let seccion of secciones.controls; let i = index"
       fxLayout="column"
@@ -9,7 +9,7 @@
       <div [formGroupName]="i" fxLayout="column">
         <div fxLayoutAlign="space-between center" fxLayoutGap="1rem">
           <!-- Nombres -->
-          <mat-form-field appearance="fill" fxFlex="1 1 calc(20% - 1rem)">
+          <mat-form-field appearance="outline" fxFlex="1 1 calc(20% - 1rem)">
             <mat-label>Nombres</mat-label>
             <input
               matInput
@@ -25,7 +25,7 @@
           </mat-form-field>
 
           <!-- Apellidos -->
-          <mat-form-field appearance="fill" fxFlex="1 1 calc(20% - 1rem)">
+          <mat-form-field appearance="outline" fxFlex="1 1 calc(20% - 1rem)">
             <mat-label>Apellidos</mat-label>
             <input
               matInput
@@ -43,7 +43,7 @@
           </mat-form-field>
 
           <!-- Nacionalidad -->
-          <mat-form-field appearance="fill" fxFlex="1 1 calc(20% - 1rem)">
+          <mat-form-field appearance="outline" fxFlex="1 1 calc(20% - 1rem)">
             <mat-label>Nacionalidad</mat-label>
             <input
               matInput
@@ -61,7 +61,7 @@
           </mat-form-field>
 
           <!-- Tipo Documento -->
-          <mat-form-field appearance="fill" fxFlex="1 1 calc(20% - 1rem)">
+          <mat-form-field appearance="outline" fxFlex="1 1 calc(20% - 1rem)">
             <mat-label>Tipo Documento</mat-label>
             <mat-select
               formControlName="tipoDocumento"
@@ -84,14 +84,14 @@
           </mat-form-field>
 
           <!-- Numero Documento -->
-          <mat-form-field appearance="fill" fxFlex="1 1 calc(20% - 1rem)">
+          <mat-form-field appearance="outline" fxFlex="1 1 calc(20% - 1rem)">
             <mat-label>Numero Documento</mat-label>
             <input
               matInput
               placeholder="NumeroDocumento"
               formControlName="numeroDocumento"
               onlyNumbersAlphabet
-              [isOnlyNumber]=validacionesDocumento[i].isOnlyNumbers
+              [isOnlyNumber]="validacionesDocumento[i].isOnlyNumbers"
               [maxlength]="validacionesDocumento[i].maxLength"
             />
             <mat-error
@@ -105,18 +105,20 @@
             </mat-error>
           </mat-form-field>
         </div>
-        <div fxLayoutAlign="end center">
-          <button
-            mat-raised-button
-            type="button"
-            color="warn"
-            (click)="limpiarSeccion(i)"
-          >
-            Limpiar seccion
-          </button>
-        </div>
       </div>
-    </section>
+
+      <button
+        mat-mini-fab
+        color="warn"
+        aria-label="Delete section"
+        matTooltip="Delete section"
+        class="btn-delete"
+        *ngIf="i !== 0"
+        (click)="eliminarSeccion(i)"
+      >
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-card>
 
     <div fxLayoutAlign="end center" fxLayoutGap="1rem">
       <button

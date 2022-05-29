@@ -48,16 +48,11 @@ export class RegistrationFormComponent implements OnInit {
   }
 
   public submit = () => {
+    if (this.formulario.invalid) {
+      return console.log(this.formulario);
+    }
     console.log(this.formulario.controls);
   }
-
-  public limpiarSeccion = (index: number) => {
-    const seccion = this.secciones.controls[index];
-    seccion.reset();
-    seccion.markAsTouched();
-    seccion.updateValueAndValidity();
-    seccion.get('numeroDocumento')?.disable();
-  };
 
   public agregarSeccion = (): void => {
     const seccion = this.formBuilder.group({
@@ -70,7 +65,10 @@ export class RegistrationFormComponent implements OnInit {
 
     this.secciones.push(seccion);
     this.validacionesDocumento.push(this.crearCuerpoValidacionDocumento());
+  }
 
+  public eliminarSeccion = (index: number): void => {
+    this.secciones.removeAt(index);
   }
 
   public validarTipoDocumento = (tipoDocumento: 'dni' | 'ce' | 'pasaporte', index: number) => {
@@ -80,6 +78,7 @@ export class RegistrationFormComponent implements OnInit {
       return
     }
 
+    seccion.get('numeroDocumento')?.reset();
     seccion.get('numeroDocumento')?.enable();
 
 
