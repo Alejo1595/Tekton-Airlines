@@ -8,11 +8,17 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { ContainerComponent } from './components/container/container.component';
+import { AlphabetAndSpecialCharactersDirective } from './directive/alphabetAndSpecialCharacters.directive';
+import { OnlyAlphabetsDirective } from './directive/only-alphabets.directive';
+import { OnlyNumbersDirective } from './directive/only-numbers.directive';
 
 
 @NgModule({
   declarations: [
-    ContainerComponent
+    ContainerComponent,
+    AlphabetAndSpecialCharactersDirective,
+    OnlyAlphabetsDirective,
+    OnlyNumbersDirective,
   ],
   imports: [
     CommonModule,
@@ -22,7 +28,10 @@ import { ContainerComponent } from './components/container/container.component';
     MatToolbarModule,
   ],
   exports: [
-    ContainerComponent
+    ContainerComponent,
+    AlphabetAndSpecialCharactersDirective,
+    OnlyAlphabetsDirective,
+    OnlyNumbersDirective,
   ],
 })
 export class SharedModule { }

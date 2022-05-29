@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
+import { ValidacionesDocumento } from '../../shared/models/passenger-registration.model';
 
 @Component({
   selector: 'app-registration-form',
@@ -10,7 +11,23 @@ export class RegistrationFormComponent implements OnInit {
 
   @ViewChild(FormGroupDirective, { static: true }) formGroupDirective!: FormGroupDirective;
 
+  public listadoTipoDocumentos = [
+    {
+      id: 'dni',
+      valor: 'DNI'
+    },
+    {
+      id: 'ce',
+      valor: 'CE'
+    },
+    {
+      id: 'pasaporte',
+      valor: 'Pasaporte'
+    }
+  ];
+
   public formulario: FormGroup = this.formBuilder.group({});
+  public validacionesDocumento: ValidacionesDocumento[] = [];
 
   public get secciones() {
     return this.formulario.get('secciones') as FormArray;
@@ -39,18 +56,44 @@ export class RegistrationFormComponent implements OnInit {
     seccion.reset();
     seccion.markAsTouched();
     seccion.updateValueAndValidity();
+    seccion.get('numeroDocumento')?.disable();
   };
 
   public agregarSeccion = (): void => {
     const seccion = this.formBuilder.group({
       nombres: [null, [Validators.required]],
-      apellidos: [null, Validators.required],
-      nacionalidad: [null, Validators.required],
-      tipoDocumento: [null, Validators.required],
-      numeroDocumento: [null, Validators.required]
+      apellidos: [null, [Validators.required]],
+      nacionalidad: [null, [Validators.required]],
+      tipoDocumento: [null, [Validators.required]],
+      numeroDocumento: [{ value: null, disabled: true }, [Validators.required]]
     });
 
     this.secciones.push(seccion);
+    this.validacionesDocumento.push(this.crearCuerpoValidacionDocumento());
 
   }
+
+  public validarTipoDocumento = (tipoDocumento: 'dni' | 'ce' | 'pasaporte', index: number) => {
+    const seccion = this.secciones.controls[index];
+
+    if (!seccion || !tipoDocumento) {
+      return
+    }
+
+    seccion.get('numeroDocumento')?.enable();
+
+
+    if (tipoDocumento === 'dni') {
+      this.validacionesDocumento[index] = { isOnlyNumbers: true, maxLength: 8 }
+    } else if (tipoDocumento === 'ce') {
+      this.validacionesDocumento[index] = { isOnlyNumbers: false, maxLength: 9 }
+    } else {
+      this.validacionesDocumento[index] = { isOnlyNumbers: true, maxLength: 9 }
+    }
+  }
+
+  private crearCuerpoValidacionDocumento = () => ({ isOnlyNumbers: true, maxLength: 8 })
 }
+
+
+

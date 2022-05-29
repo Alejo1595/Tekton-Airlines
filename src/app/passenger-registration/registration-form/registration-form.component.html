@@ -11,7 +11,12 @@
           <!-- Nombres -->
           <mat-form-field appearance="fill" fxFlex="1 1 calc(20% - 1rem)">
             <mat-label>Nombres</mat-label>
-            <input matInput placeholder="Nombres" formControlName="nombres" />
+            <input
+              matInput
+              placeholder="Nombres"
+              formControlName="nombres"
+              alphabetAndSpecialCharacters
+            />
             <mat-error
               *ngIf="secciones.controls[i].get('nombres')?.hasError('required')"
             >
@@ -26,6 +31,7 @@
               matInput
               placeholder="Apellidos"
               formControlName="apellidos"
+              alphabetAndSpecialCharacters
             />
             <mat-error
               *ngIf="
@@ -43,6 +49,7 @@
               matInput
               placeholder="Nacionalidad"
               formControlName="nacionalidad"
+              onlyAlphabets
             />
             <mat-error
               *ngIf="
@@ -53,14 +60,20 @@
             </mat-error>
           </mat-form-field>
 
-          <!-- TipoDocumento -->
+          <!-- Tipo Documento -->
           <mat-form-field appearance="fill" fxFlex="1 1 calc(20% - 1rem)">
             <mat-label>Tipo Documento</mat-label>
-            <input
-              matInput
-              placeholder="TipoDocumento"
+            <mat-select
               formControlName="tipoDocumento"
-            />
+              (selectionChange)="validarTipoDocumento($event.value, i)"
+            >
+              <mat-option
+                *ngFor="let tipo of listadoTipoDocumentos"
+                [value]="tipo.id"
+              >
+                {{ tipo.valor }}
+              </mat-option>
+            </mat-select>
             <mat-error
               *ngIf="
                 secciones.controls[i].get('tipoDocumento')?.hasError('required')
@@ -70,13 +83,16 @@
             </mat-error>
           </mat-form-field>
 
-          <!-- NumeroDocumento -->
+          <!-- Numero Documento -->
           <mat-form-field appearance="fill" fxFlex="1 1 calc(20% - 1rem)">
             <mat-label>Numero Documento</mat-label>
             <input
               matInput
               placeholder="NumeroDocumento"
               formControlName="numeroDocumento"
+              onlyNumbersAlphabet
+              [isOnlyNumber]=validacionesDocumento[i].isOnlyNumbers
+              [maxlength]="validacionesDocumento[i].maxLength"
             />
             <mat-error
               *ngIf="
