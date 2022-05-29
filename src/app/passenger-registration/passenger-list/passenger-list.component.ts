@@ -6,7 +6,7 @@ import { Subject, takeUntil, tap } from 'rxjs';
 
 import { MatTableDataSource } from '@angular/material/table';
 
-import { MessageService } from '../../shared/services/message.service';
+import { MessageService } from 'shared/services/message.service';
 
 import { Passenger } from '../shared/models/passenger-registration.model';
 import { PassengerService } from '../shared/service/passenger.service';

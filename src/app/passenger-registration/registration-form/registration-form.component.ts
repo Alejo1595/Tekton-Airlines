@@ -4,10 +4,10 @@ import { Router } from '@angular/router';
 
 import { Subject, takeUntil, tap, Observable, shareReplay } from 'rxjs';
 
-import { MessageService } from '../../shared/services/message.service';
-import { generateID } from '../../shared/utils/generateID';
-import { Catalog } from '../../shared/models/catalog.model';
-import { CatalogService } from '../../shared/services/catalog.service';
+import { MessageService } from 'shared/services/message.service';
+import { generateID } from 'shared/utils/generateID';
+import { Catalog } from 'shared/models/catalog.model';
+import { CatalogService } from 'shared/services/catalog.service';
 
 import { ValidationsDocument, Passenger, DocumentType } from '../shared/models/passenger-registration.model';
 import { PassengerService } from '../shared/service/passenger.service';
