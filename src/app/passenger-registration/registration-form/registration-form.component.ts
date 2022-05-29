@@ -51,7 +51,9 @@ export class RegistrationFormComponent implements OnInit {
     if (this.formulario.invalid) {
       return console.log(this.formulario);
     }
-    console.log(this.formulario.controls);
+    
+    console.log(this.secciones.value);
+    this.reiniciarFormulario();
   }
 
   public agregarSeccion = (): void => {
@@ -92,6 +94,12 @@ export class RegistrationFormComponent implements OnInit {
   }
 
   private crearCuerpoValidacionDocumento = () => ({ isOnlyNumbers: true, maxLength: 8 })
+
+  private reiniciarFormulario = () => {
+    this.formGroupDirective.resetForm();
+    this.secciones.clear();
+    this.agregarSeccion();
+  }
 }
 
 
