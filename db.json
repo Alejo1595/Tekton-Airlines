@@ -1,12 +1,3 @@
 {
-  "Passenger": [
-    {
-      "nombres": "Julian",
-      "apellidos": "Sanchez",
-      "nacionalidad": "Colombiana",
-      "tipoDocumento": "dni",
-      "numeroDocumento": "12345678",
-      "id": "b8x1jxy6wgpl3qua8qi"
-    }
-  ]
+  "Passenger": []
 }

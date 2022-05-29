@@ -4,11 +4,16 @@
     fxLayoutGap="1rem"
     style="margin-bottom: 1rem"
   >
-    <button mat-mini-fab color="warn" [disabled]="toogleDeleteButton">
+    <button
+      mat-mini-fab
+      color="warn"
+      [disabled]="toogleDeleteButton"
+      (click)="deletePasajeros()"
+    >
       <mat-icon>delete</mat-icon>
     </button>
 
-    <button mat-mini-fab color="accent">
+    <button mat-mini-fab color="accent" [disabled]="toogleCreateButton">
       <mat-icon>add</mat-icon>
     </button>
   </div>
