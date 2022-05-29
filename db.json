@@ -1,12 +1,17 @@
 {
-  "Passenger": [
+  "Passenger": {},
+  "TypeDocuments": [
     {
-      "nombres": "Julian",
-      "apellidos": "Sanchez",
-      "nacionalidad": "Colombiana",
-      "tipoDocumento": "dni",
-      "numeroDocumento": "13212313",
-      "id": "uoc80b671jl3ra1rji"
+      "id": "dni",
+      "value": "DNI"
+    },
+    {
+      "id": "ce",
+      "value": "CE"
+    },
+    {
+      "id": "pasaporte",
+      "value": "Pasaporte"
     }
   ]
 }

@@ -1,13 +1,15 @@
-export type ValidacionesDocumento = {
+export type ValidationsDocument = {
 	isOnlyNumbers: boolean;
 	maxLength: number
 };
 
 export type Passenger = {
 	id?: string;
-	nombres: string;
-	apellidos: string;
-	nacionalidad: string;
-	tipoDocumento: string;
-	numeroDocumento: number;
+	names: string;
+	lastnames: string;
+	nacionality: string;
+	documentType: DocumentType;
+	documentNumber: number;
 }
+
+export type DocumentType = 'dni' | 'ce' | 'pasaporte'

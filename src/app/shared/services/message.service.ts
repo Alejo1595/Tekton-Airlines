@@ -4,10 +4,10 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 @Injectable()
 export class MessageService {
 
-  constructor(private _snackBar: MatSnackBar) { }
+  constructor(private snackBar: MatSnackBar) { }
 
   public openSnackBar(message: string, action: string) {
-    this._snackBar.open(message, action, {
+    this.snackBar.open(message, action, {
       duration: 3 * 1000,
       horizontalPosition: 'right',
       verticalPosition: 'top'

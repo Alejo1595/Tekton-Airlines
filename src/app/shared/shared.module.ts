@@ -8,13 +8,14 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { FlexLayoutModule } from '@angular/flex-layout';
 
-import { ContainerComponent } from './components/container/container.component';
+import { CatalogService } from './services/catalog.service';
+import { MessageService } from './services/message.service';
 
 import { AlphabetAndSpecialCharactersDirective } from './directives/alphabetAndSpecialCharacters.directive';
 import { OnlyAlphabetsDirective } from './directives/only-alphabets.directive';
 import { OnlyNumbersDirective } from './directives/only-numbers.directive';
 
-import { MessageService } from './services/message.service';
+import { ContainerComponent } from './components/container/container.component';
 
 
 @NgModule({
@@ -39,6 +40,7 @@ import { MessageService } from './services/message.service';
     OnlyNumbersDirective,
   ],
   providers: [
+    CatalogService,
     MessageService
   ]
 })

@@ -1,11 +1,16 @@
-import { SelectionModel } from '@angular/cdk/collections';
 import { Component, OnInit } from '@angular/core';
+import { SelectionModel } from '@angular/cdk/collections';
+import { Router } from '@angular/router';
+
+import { Subject, takeUntil, tap } from 'rxjs';
+
 import { MatTableDataSource } from '@angular/material/table';
+
+import { MessageService } from '../../shared/services/message.service';
+
 import { Passenger } from '../shared/models/passenger-registration.model';
 import { PassengerService } from '../shared/service/passenger.service';
-import { Subject, takeUntil, tap } from 'rxjs';
-import { MessageService } from '../../shared/services/message.service';
-import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-passeger-list',
@@ -13,12 +18,12 @@ import { Router } from '@angular/router';
   styleUrls: ['./passenger-list.component.scss']
 })
 export class PassengerListComponent implements OnInit {
-  public displayedColumns: string[] = ['nombres', 'apellidos', 'nacionalidad', 'tipoDocumento', 'numeroDocumento', 'select'];
+  public displayedColumns: string[] = ['names', 'lastnames', 'nacionality', 'documentType', 'documentNumber', 'select'];
   public dataSource = new MatTableDataSource<Passenger>([]);
   public selection = new SelectionModel<Passenger>(true, []);
-  
+
   private unsubscribe$ = new Subject<boolean>();
-  private listaPasajeros: Passenger[] = [];
+  private listPassengers: Passenger[] = [];
 
   constructor(
     private router: Router,
@@ -31,11 +36,11 @@ export class PassengerListComponent implements OnInit {
   }
 
   public get toogleCreateButton() {
-    return this.listaPasajeros.length >= 4;
+    return this.listPassengers.length >= 4;
   }
 
-  public get numeroPasajeros() {
-    return this.listaPasajeros.length;
+  public get numberPassengers() {
+    return this.listPassengers.length;
   }
 
   ngOnInit(): void {
@@ -57,24 +62,24 @@ export class PassengerListComponent implements OnInit {
     this.selection.select(...this.dataSource.data);
   }
 
-  public deletePasajeros(): void {
-    const pasajerosSeleccionado = this.selection.selected;
-    let nuevaLista = this.listaPasajeros.filter(({ id }) =>
-      pasajerosSeleccionado.every(({ id: idSeleccionado }) => idSeleccionado !== id));
+  public deletePassengers(): void {
+    const passengersSelected = this.selection.selected;
+    let newList = this.listPassengers.filter(({ id }) =>
+      passengersSelected.every(({ id: idSeleccionado }) => idSeleccionado !== id));
 
 
-    this.passengerService.savePassenger(nuevaLista)
+    this.passengerService.savePassenger(newList)
       .pipe(
         takeUntil(this.unsubscribe$),
         tap(() => this.selection.clear()),
-        tap(() => this.messageService.openSnackBar('Eliminación exitosa', 'Cerrar')),
+        tap(() => this.messageService.openSnackBar('Successful elimination', 'Close')),
         tap(() => this.loadData())
       )
       .subscribe();
 
   }
 
-  public navigateToForm (): void {
+  public navigateToForm(): void {
     this.router.navigateByUrl('passenger/form');
   }
 
@@ -82,9 +87,10 @@ export class PassengerListComponent implements OnInit {
     this.passengerService.getPassenger()
       .pipe(
         takeUntil(this.unsubscribe$),
-        tap((listaPasajeros: Passenger[]) => {
-          this.listaPasajeros = listaPasajeros;
-          this.dataSource.data = listaPasajeros;
+        tap((listPassengers: Passenger[]) => {
+          const list = Array.from(listPassengers);
+          this.listPassengers = list;
+          this.dataSource.data = list;
         })
       ).subscribe();
   }

@@ -1,107 +1,107 @@
-<app-container titleHeader="Registro de pasajeros">
-  <form (submit)="submit()" [formGroup]="formulario" autocomplete="off">
+<app-container titleHeader="Passenger registration">
+  <form (submit)="submit()" [formGroup]="form" autocomplete="off">
     <mat-card
-      formArrayName="secciones"
-      *ngFor="let seccion of secciones.controls; let i = index"
+      formArrayName="sections"
+      *ngFor="let seccion of sections.controls; let i = index"
       fxLayout="column"
       class="spacing-section"
     >
       <div [formGroupName]="i" fxLayout="column">
         <div fxLayoutAlign="space-between center" fxLayoutGap="1rem">
-          <!-- Nombres -->
+          <!-- Names -->
           <mat-form-field appearance="outline" fxFlex="1 1 calc(20% - 1rem)">
-            <mat-label>Nombres</mat-label>
+            <mat-label>Names</mat-label>
             <input
               matInput
-              placeholder="Nombres"
-              formControlName="nombres"
+              placeholder="Names"
+              formControlName="names"
               alphabetAndSpecialCharacters
             />
             <mat-error
-              *ngIf="secciones.controls[i].get('nombres')?.hasError('required')"
+              *ngIf="sections.controls[i].get('names')?.hasError('required')"
             >
-              El campo es <strong>obligatorio</strong>
+              The field is <strong>required</strong>
             </mat-error>
           </mat-form-field>
 
-          <!-- Apellidos -->
+          <!-- Lastnames -->
           <mat-form-field appearance="outline" fxFlex="1 1 calc(20% - 1rem)">
-            <mat-label>Apellidos</mat-label>
+            <mat-label>Lastnames</mat-label>
             <input
               matInput
-              placeholder="Apellidos"
-              formControlName="apellidos"
+              placeholder="lastnames"
+              formControlName="lastnames"
               alphabetAndSpecialCharacters
             />
             <mat-error
               *ngIf="
-                secciones.controls[i].get('apellidos')?.hasError('required')
+                sections.controls[i].get('lastname')?.hasError('required')
               "
             >
-              El campo es <strong>obligatorio</strong>
+              The field is <strong>required</strong>
             </mat-error>
           </mat-form-field>
 
-          <!-- Nacionalidad -->
+          <!-- Nacionality -->
           <mat-form-field appearance="outline" fxFlex="1 1 calc(20% - 1rem)">
-            <mat-label>Nacionalidad</mat-label>
+            <mat-label>Nacionality</mat-label>
             <input
               matInput
-              placeholder="Nacionalidad"
-              formControlName="nacionalidad"
+              placeholder="Nacionality"
+              formControlName="nacionality"
               onlyAlphabets
             />
             <mat-error
               *ngIf="
-                secciones.controls[i].get('nacionalidad')?.hasError('required')
+                sections.controls[i].get('nacionality')?.hasError('required')
               "
             >
-              El campo es <strong>obligatorio</strong>
+              The field is <strong>required</strong>
             </mat-error>
           </mat-form-field>
 
-          <!-- Tipo Documento -->
+          <!-- Document Type -->
           <mat-form-field appearance="outline" fxFlex="1 1 calc(20% - 1rem)">
-            <mat-label>Tipo Documento</mat-label>
+            <mat-label>Document Type</mat-label>
             <mat-select
-              formControlName="tipoDocumento"
-              (selectionChange)="validarTipoDocumento($event.value, i)"
+              formControlName="documentType"
+              (selectionChange)="validateDocumentType($event.value, i)"
             >
               <mat-option
-                *ngFor="let tipo of listadoTipoDocumentos"
+                *ngFor="let tipo of listTypeDocuments$ | async"
                 [value]="tipo.id"
               >
-                {{ tipo.valor }}
+                {{ tipo.value }}
               </mat-option>
             </mat-select>
             <mat-error
               *ngIf="
-                secciones.controls[i].get('tipoDocumento')?.hasError('required')
+                sections.controls[i].get('documentType')?.hasError('required')
               "
             >
-              El campo es <strong>obligatorio</strong>
+              The field is <strong>required</strong>
             </mat-error>
           </mat-form-field>
 
-          <!-- Numero Documento -->
+          <!-- Document Number -->
           <mat-form-field appearance="outline" fxFlex="1 1 calc(20% - 1rem)">
-            <mat-label>Numero Documento</mat-label>
+            <mat-label>Document Number</mat-label>
             <input
               matInput
-              placeholder="NumeroDocumento"
-              formControlName="numeroDocumento"
+              placeholder="Document number"
+              formControlName="documentNumber"
               onlyNumbersAlphabet
-              [isOnlyNumber]="validacionesDocumento[i].isOnlyNumbers"
-              [maxlength]="validacionesDocumento[i].maxLength"
+              [isOnlyNumber]="validationsDocument[i].isOnlyNumbers"
+              [maxlength]="validationsDocument[i].maxLength"
             />
             <mat-error
               *ngIf="
-                secciones.controls[i]
-                  .get('numeroDocumento')
+                sections.controls[i]
+                  .get('documentNumber')
                   ?.hasError('required')
               "
             >
-              El campo es <strong>obligatorio</strong>
+              The field is <strong>required</strong>
             </mat-error>
           </mat-form-field>
         </div>
@@ -114,7 +114,7 @@
         matTooltip="Delete section"
         class="btn-delete"
         *ngIf="i !== 0"
-        (click)="eliminarSeccion(i)"
+        (click)="deleteSection(i)"
       >
         <mat-icon>close</mat-icon>
       </button>
@@ -125,13 +125,13 @@
         mat-raised-button
         type="button"
         color="accent"
-        [disabled]="validarNumeroSecciones"
-        (click)="agregarSeccion()"
+        [disabled]="validateSectionNumber"
+        (click)="addSection()"
       >
-        Nuevo pasajero
+        New passenger
       </button>
 
-      <button mat-raised-button type="submit" color="primary">Guardar</button>
+      <button mat-raised-button type="submit" color="primary">Save</button>
     </div>
   </form>
 </app-container>
