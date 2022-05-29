@@ -3,10 +3,20 @@
     <span>Tekton Airlines</span>
 
     <div fxLayoutGap="1rem">
-      <button mat-raised-button color="accent" aria-label="Register">
+      <button
+        mat-raised-button
+        color="accent"
+        aria-label="Register"
+        (click)="navigateTo('passenger/form')"
+      >
         Registro
       </button>
-      <button mat-raised-button color="accent" aria-label="Register">
+      <button
+        mat-raised-button
+        color="accent"
+        aria-label="List"
+        (click)="navigateTo('passenger/list')"
+      >
         Listado
       </button>
     </div>

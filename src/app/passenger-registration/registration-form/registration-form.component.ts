@@ -1,7 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
-import { ValidacionesDocumento } from '../shared/models/passenger-registration.model';
+import { Subject, takeUntil, tap } from 'rxjs';
+import { ValidacionesDocumento, Passenger } from '../shared/models/passenger-registration.model';
 import { PassengerService } from '../shared/service/passenger.service';
+import { MessageService } from '../../shared/services/message.service';
+import { Router } from '@angular/router';
+import { generateID } from '../../shared/utils/generateID';
 
 @Component({
   selector: 'app-registration-form',
@@ -26,9 +30,9 @@ export class RegistrationFormComponent implements OnInit {
       valor: 'Pasaporte'
     }
   ];
-
   public formulario: FormGroup = this.formBuilder.group({});
   public validacionesDocumento: ValidacionesDocumento[] = [];
+  private unsubscribe$ = new Subject<boolean>();
 
   public get secciones() {
     return this.formulario.get('secciones') as FormArray;
@@ -40,7 +44,9 @@ export class RegistrationFormComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private passengerService: PassengerService
+    private router: Router,
+    private passengerService: PassengerService,
+    private messageService: MessageService
   ) {
     this.formulario = formBuilder.group({
       secciones: formBuilder.array([])
@@ -49,16 +55,20 @@ export class RegistrationFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.agregarSeccion();
-    this.passengerService.getPassenger();
   }
 
   public submit = () => {
     if (this.formulario.invalid) {
-      return console.log(this.formulario);
+      return this.messageService.openSnackBar('Por favor ingrese los campos obligatorios', 'Cerrar');
     }
 
-    this.passengerService.savePassenger(this.secciones.value);
-    this.reiniciarFormulario();
+    this.passengerService.savePassenger(this.generateBody())
+      .pipe(
+        takeUntil(this.unsubscribe$),
+        tap(() => this.reiniciarFormulario()),
+        tap(() => this.messageService.openSnackBar('Registro creado exitosamente', 'Cerrar')),
+        tap(() => this.router.navigateByUrl('passenger/list'))
+      ).subscribe();
   }
 
   public agregarSeccion = (): void => {
@@ -104,6 +114,10 @@ export class RegistrationFormComponent implements OnInit {
     this.formGroupDirective.resetForm();
     this.secciones.clear();
     this.agregarSeccion();
+  }
+
+  private generateBody() {
+    return this.secciones.value.map((item: Passenger) => ({ ...item, id: generateID() }));
   }
 }
 

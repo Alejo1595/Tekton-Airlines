@@ -4,6 +4,7 @@ export type ValidacionesDocumento = {
 };
 
 export type Passenger = {
+	id?: string;
 	nombres: string;
 	apellidos: string;
 	nacionalidad: string;
