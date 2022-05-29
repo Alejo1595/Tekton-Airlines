@@ -1,5 +1,5 @@
 <app-container titleHeader="Passenger registration">
-  <form (submit)="submit()" [formGroup]="form" autocomplete="off">
+  <form (ngSubmit)="submit()" [formGroup]="form" autocomplete="off">
     <mat-card
       formArrayName="sections"
       *ngFor="let seccion of sections.controls; let i = index"
@@ -29,13 +29,13 @@
             <mat-label>Lastnames</mat-label>
             <input
               matInput
-              placeholder="lastnames"
+              placeholder="Lastnames"
               formControlName="lastnames"
               alphabetAndSpecialCharacters
             />
             <mat-error
               *ngIf="
-                sections.controls[i].get('lastname')?.hasError('required')
+                sections.controls[i].get('lastnames')?.hasError('required')
               "
             >
               The field is <strong>required</strong>
@@ -110,6 +110,7 @@
       <button
         mat-mini-fab
         color="warn"
+        type="button"
         aria-label="Delete section"
         matTooltip="Delete section"
         class="btn-delete"

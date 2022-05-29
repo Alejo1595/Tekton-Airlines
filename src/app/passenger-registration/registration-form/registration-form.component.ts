@@ -39,7 +39,7 @@ export class RegistrationFormComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private passengerService: PassengerService,
-    public catalogService: CatalogService,
+    private catalogService: CatalogService,
     private messageService: MessageService
   ) {
     this.form = formBuilder.group({
