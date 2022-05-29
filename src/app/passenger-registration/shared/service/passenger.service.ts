@@ -10,10 +10,10 @@ export class PassengerService {
   constructor(private http: HttpClient) { }
 
   public savePassenger = (body: Passenger[]): Observable<Passenger[]> => {
-    return this.http.post<Passenger[]>(`${environment. url_base}/Passenger`, body);
+    return this.http.post<Passenger[]>(`${environment.url_base}/Passenger`, body);
   }
 
   public getPassenger = (): Observable<Passenger[]> => {
-    return this.http.get<Passenger[]>(`${environment. url_base}/Passenger`);
+    return this.http.get<Passenger[]>(`${environment.url_base}/Passenger`);
   }
 }

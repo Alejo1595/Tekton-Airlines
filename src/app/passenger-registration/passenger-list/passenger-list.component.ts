@@ -5,6 +5,7 @@ import { Passenger } from '../shared/models/passenger-registration.model';
 import { PassengerService } from '../shared/service/passenger.service';
 import { Subject, takeUntil, tap } from 'rxjs';
 import { MessageService } from '../../shared/services/message.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-passeger-list',
@@ -15,11 +16,12 @@ export class PassengerListComponent implements OnInit {
   public displayedColumns: string[] = ['nombres', 'apellidos', 'nacionalidad', 'tipoDocumento', 'numeroDocumento', 'select'];
   public dataSource = new MatTableDataSource<Passenger>([]);
   public selection = new SelectionModel<Passenger>(true, []);
-
+  
   private unsubscribe$ = new Subject<boolean>();
   private listaPasajeros: Passenger[] = [];
 
   constructor(
+    private router: Router,
     private passengerService: PassengerService,
     private messageService: MessageService
   ) { }
@@ -30,6 +32,10 @@ export class PassengerListComponent implements OnInit {
 
   public get toogleCreateButton() {
     return this.listaPasajeros.length >= 4;
+  }
+
+  public get numeroPasajeros() {
+    return this.listaPasajeros.length;
   }
 
   ngOnInit(): void {
@@ -53,8 +59,9 @@ export class PassengerListComponent implements OnInit {
 
   public deletePasajeros(): void {
     const pasajerosSeleccionado = this.selection.selected;
-    const nuevaLista = this.listaPasajeros.filter(({ id }) =>
+    let nuevaLista = this.listaPasajeros.filter(({ id }) =>
       pasajerosSeleccionado.every(({ id: idSeleccionado }) => idSeleccionado !== id));
+
 
     this.passengerService.savePassenger(nuevaLista)
       .pipe(
@@ -65,6 +72,10 @@ export class PassengerListComponent implements OnInit {
       )
       .subscribe();
 
+  }
+
+  public navigateToForm (): void {
+    this.router.navigateByUrl('passenger/form');
   }
 
   private loadData = (): void => {
