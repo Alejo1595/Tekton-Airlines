@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { RegistrationFormComponent } from './registration-form/registration-form.component';
-import { PassegerListComponent } from './passeger-list/passeger-list.component';
+import { PassengerListComponent } from './passenger-list/passenger-list.component';
 
 const routes: Routes = [
   {
@@ -15,7 +15,7 @@ const routes: Routes = [
   },
   {
     path: 'list',
-    component: PassegerListComponent
+    component: PassengerListComponent
   },
 ];
 

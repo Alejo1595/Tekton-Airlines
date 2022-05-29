@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
-import { ValidacionesDocumento } from '../../shared/models/passenger-registration.model';
+import { ValidacionesDocumento } from '../shared/models/passenger-registration.model';
+import { PassengerService } from '../shared/service/passenger.service';
 
 @Component({
   selector: 'app-registration-form',
@@ -37,7 +38,10 @@ export class RegistrationFormComponent implements OnInit {
     return this.secciones.length > 3
   }
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private passengerService: PassengerService
+  ) {
     this.formulario = formBuilder.group({
       secciones: formBuilder.array([])
     })
@@ -45,14 +49,15 @@ export class RegistrationFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.agregarSeccion();
+    this.passengerService.getPassenger();
   }
 
   public submit = () => {
     if (this.formulario.invalid) {
       return console.log(this.formulario);
     }
-    
-    console.log(this.secciones.value);
+
+    this.passengerService.savePassenger(this.secciones.value);
     this.reiniciarFormulario();
   }
 

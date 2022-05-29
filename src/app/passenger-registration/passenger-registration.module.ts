@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { MatButtonModule } from '@angular/material/button';
@@ -17,18 +18,20 @@ import { SharedModule } from '../shared/shared.module';
 
 import { PassengerRegistrationRoutingModule } from './passenger-registration-routing.module';
 
-import { PassegerListComponent } from './passeger-list/passeger-list.component';
+import { PassengerListComponent } from './passenger-list/passenger-list.component';
 import { RegistrationFormComponent } from './registration-form/registration-form.component';
+import { PassengerService } from './shared/service/passenger.service';
 
 
 @NgModule({
   declarations: [
     RegistrationFormComponent,
-    PassegerListComponent
+    PassengerListComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
+    HttpClientModule,
     ReactiveFormsModule,
     FlexLayoutModule,
     MatButtonModule,
@@ -43,7 +46,10 @@ import { RegistrationFormComponent } from './registration-form/registration-form
   ],
   exports: [
     RegistrationFormComponent,
-    PassegerListComponent
+    PassengerListComponent
+  ],
+  providers: [
+    PassengerService
   ]
 })
 export class PassengerRegistrationModule { }

@@ -1,0 +1,18 @@
+{
+  "Passenger": [
+    {
+      "nombres": "Julian",
+      "apellidos": "Sanchez",
+      "nacionalidad": "Colombia",
+      "tipoDocumento": "ce",
+      "numeroDocumento": "123123132"
+    },
+    {
+      "nombres": "Daniela",
+      "apellidos": "Jurado",
+      "nacionalidad": "Chilena",
+      "tipoDocumento": "dni",
+      "numeroDocumento": "12154654"
+    }
+  ]
+}
